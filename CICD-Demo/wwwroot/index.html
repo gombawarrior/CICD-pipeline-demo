@@ -10,12 +10,12 @@
     </style>
 </head>
 <body>
-<h1>Termék Információ</h1>
+<h1>Product Information</h1>
 <div class="card">
     <input type="number" id="productId" value="1">
-    <button onclick="getProduct()">Lekérés</button>
+    <button onclick="getProduct()">Get product</button>
     <div id="result" style="margin-top: 20px;">
-        <i>Adj meg egy ID-t és nyomj a gombra...</i>
+        <i>Enter an ID...</i>
     </div>
 </div>
 
@@ -23,18 +23,17 @@
     async function getProduct() {
         const id = document.getElementById('productId').value;
         const resultDiv = document.getElementById('result');
-        resultDiv.innerHTML = "Betöltés...";
+        resultDiv.innerHTML = "Loading...";
 
         try {
-            // CSERÉLD KI az alábbi URL-t a saját Azure API címedre!
             const response = await fetch(`/api/products/${id}`);
 
-            if (!response.ok) throw new Error("A termék nem található");
+            if (!response.ok) throw new Error("The product was not found");
 
             const data = await response.json();
-            resultDiv.innerHTML = `<strong>Név:</strong> ${data.name}<br><strong>ID:</strong> ${data.id}`;
+            resultDiv.innerHTML = `<strong>Name:</strong> ${data.name}<br><strong>ID:</strong> ${data.id}`;
         } catch (error) {
-            resultDiv.innerHTML = `<span style="color:red">Hiba: ${error.message}</span>`;
+            resultDiv.innerHTML = `<span style="color:red">Error: ${error.message}</span>`;
         }
     }
 </script>
