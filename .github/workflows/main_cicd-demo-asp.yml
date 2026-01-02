@@ -38,13 +38,11 @@ jobs:
           name: test-results
           path: ./TestResults
 
-      - name: Publish Test Report
-        uses: dorny/test-reporter@v1
-        if: success() || failure()
+      - name: Test Summary
+        uses: test-summary/action@v2
         with:
-          name: .NET Tests Summary
-          path: ./TestResults/*.trx
-          reporter: dotnet-trx
+          paths: "./TestResults/*.trx"
+        if: always()
 
       - name: dotnet publish
         run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
@@ -74,5 +72,6 @@ jobs:
           package: .
 
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F0A9966A4AF14D2EBA6493E5D9FF2D0B }}
+
 
 
