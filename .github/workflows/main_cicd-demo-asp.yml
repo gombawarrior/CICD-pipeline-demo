@@ -15,6 +15,7 @@ jobs:
     permissions:
       contents: read
       checks: write
+      pull-requests: write
 
     steps:
       - uses: actions/checkout@v4
@@ -73,4 +74,5 @@ jobs:
           package: .
 
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F0A9966A4AF14D2EBA6493E5D9FF2D0B }}
+
 
