@@ -13,7 +13,9 @@ jobs:
   build:
     runs-on: windows-latest
     permissions:
-      contents: read #This is required for actions/checkout
+      contents: read
+      checks: write
+      pull-requests: write
 
     steps:
       - uses: actions/checkout@v4
@@ -22,19 +24,10 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '10.x'
-
+          
       - name: Build with dotnet
         run: dotnet build --configuration Release
-
-      - name: dotnet publish
-        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
-
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v4
-        with:
-          name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
-
+        
       - name: Test
         run: dotnet test --configuration Release --no-build --logger trx --results-directory ./TestResults
 
@@ -44,14 +37,24 @@ jobs:
         with:
           name: test-results
           path: ./TestResults
-
+      
+      
       - name: Publish Test Report
         uses: dorny/test-reporter@v1
-        if: always()
+        if: success() || failure()
         with:
           name: .NET Tests Summary
           path: ./TestResults/*.trx
-          reporter: dotnet-trx
+          reporter: dotnet-trx 
+
+      - name: dotnet publish
+        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
+
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v4
+        with:
+          name: .net-app
+          path: ${{env.DOTNET_ROOT}}/myapp
 
   deploy:
     runs-on: windows-latest
@@ -72,3 +75,8 @@ jobs:
           package: .
 
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F0A9966A4AF14D2EBA6493E5D9FF2D0B }}
+
+
+
+
+
