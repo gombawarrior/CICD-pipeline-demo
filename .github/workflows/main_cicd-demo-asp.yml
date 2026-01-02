@@ -35,6 +35,24 @@ jobs:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
 
+      - name: Test
+        run: dotnet test --configuration Release --no-build --logger trx --results-directory ./TestResults
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: ./TestResults
+
+      - name: Publish Test Report
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: .NET Tests Summary
+          path: ./TestResults/*.trx
+          reporter: dotnet-trx
+
   deploy:
     runs-on: windows-latest
     needs: build
@@ -52,4 +70,5 @@ jobs:
           app-name: 'CICD-Demo-ASP'
           slot-name: 'Production'
           package: .
+
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F0A9966A4AF14D2EBA6493E5D9FF2D0B }}
