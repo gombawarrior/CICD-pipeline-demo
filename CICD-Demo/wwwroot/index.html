@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>CI/CD Demo Frontend</title>
+    <style>
+        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; padding: 50px; }
+        .card { border: 1px solid #ddd; padding: 20px; border-radius: 8px; box-shadow: 2px 2px 10px rgba(0,0,0,0.1); }
+        button { padding: 10px 20px; cursor: pointer; background: #0078d4; color: white; border: none; border-radius: 4px; }
+    </style>
+</head>
+<body>
+<h1>Termék Információ</h1>
+<div class="card">
+    <input type="number" id="productId" value="1">
+    <button onclick="getProduct()">Lekérés</button>
+    <div id="result" style="margin-top: 20px;">
+        <i>Adj meg egy ID-t és nyomj a gombra...</i>
+    </div>
+</div>
+
+<script>
+    async function getProduct() {
+        const id = document.getElementById('productId').value;
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = "Betöltés...";
+
+        try {
+            // CSERÉLD KI az alábbi URL-t a saját Azure API címedre!
+            const response = await fetch(`/api/products/${id}`);
+
+            if (!response.ok) throw new Error("A termék nem található");
+
+            const data = await response.json();
+            resultDiv.innerHTML = `<strong>Név:</strong> ${data.name}<br><strong>ID:</strong> ${data.id}`;
+        } catch (error) {
+            resultDiv.innerHTML = `<span style="color:red">Hiba: ${error.message}</span>`;
+        }
+    }
+</script>
+</body>
+</html>

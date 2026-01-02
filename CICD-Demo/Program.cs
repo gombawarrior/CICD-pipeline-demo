@@ -5,6 +5,9 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 app.UseRouting();
 app.MapControllerRoute(
     name: "default",
@@ -19,7 +22,7 @@ app.UseCors(x => x
     .AllowCredentials()
     .AllowAnyMethod()
     .AllowAnyHeader()
-    .WithOrigins("http://localhost:5500", "http://127.0.0.1:5500")
+    .SetIsOriginAllowed(origin => true)
 );
 
 var summaries = new[] {
