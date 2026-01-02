@@ -42,6 +42,7 @@ jobs:
         uses: test-summary/action@v2
         with:
           paths: "./TestResults/*.trx"
+          format: dotnet-trx
         if: always()
 
       - name: dotnet publish
@@ -72,6 +73,7 @@ jobs:
           package: .
 
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F0A9966A4AF14D2EBA6493E5D9FF2D0B }}
+
 
 
 
