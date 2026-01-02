@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CICD-Demo", "CICD-Demo\CICD-Demo.csproj", "{DE5A2B40-2926-469E-A53E-E56194232974}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CICD-Demo.Tests", "CICD-Demo.Tests\CICD-Demo.Tests.csproj", "{67F595D3-D250-4373-943D-AC3E227F98DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{DE5A2B40-2926-469E-A53E-E56194232974}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE5A2B40-2926-469E-A53E-E56194232974}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE5A2B40-2926-469E-A53E-E56194232974}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67F595D3-D250-4373-943D-AC3E227F98DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67F595D3-D250-4373-943D-AC3E227F98DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67F595D3-D250-4373-943D-AC3E227F98DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67F595D3-D250-4373-943D-AC3E227F98DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
